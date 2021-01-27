@@ -1,0 +1,7 @@
+/target/
+/lib/
+.attach*
+.classpath
+.project
+.settings
+data/**/lock.mdb
