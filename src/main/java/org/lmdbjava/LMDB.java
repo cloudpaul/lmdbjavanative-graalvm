@@ -20,35 +20,36 @@
 
 package org.lmdbjava;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.graalvm.nativeimage.IsolateThread;
 import org.graalvm.nativeimage.c.CContext;
 import org.graalvm.nativeimage.c.constant.CConstant;
+import org.graalvm.nativeimage.c.function.CFunction;
+import org.graalvm.nativeimage.c.function.CFunctionPointer;
 import org.graalvm.nativeimage.c.constant.CEnum;
 import org.graalvm.nativeimage.c.constant.CEnumLookup;
 import org.graalvm.nativeimage.c.constant.CEnumValue;
-import org.graalvm.nativeimage.c.function.CFunction;
-import org.graalvm.nativeimage.c.function.CFunctionPointer;
 import org.graalvm.nativeimage.c.function.InvokeCFunctionPointer;
-import org.graalvm.nativeimage.c.struct.CField;
-import org.graalvm.nativeimage.c.struct.CFieldAddress;
-import org.graalvm.nativeimage.c.struct.CStruct;
 import org.graalvm.nativeimage.c.type.CCharPointer;
 import org.graalvm.nativeimage.c.type.CCharPointerPointer;
 import org.graalvm.nativeimage.c.type.CIntPointer;
 import org.graalvm.nativeimage.c.type.CLongPointer;
-import org.graalvm.nativeimage.c.type.VoidPointer;
 import org.graalvm.nativeimage.c.type.WordPointer;
+import org.graalvm.nativeimage.c.type.VoidPointer;
+import org.graalvm.nativeimage.c.struct.CField;
+import org.graalvm.nativeimage.c.struct.CFieldAddress;
+import org.graalvm.nativeimage.c.struct.CStruct;
 import org.graalvm.word.Pointer;
 import org.graalvm.word.PointerBase;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * GraalVM native image bindings to LMDB.
  */
 @CContext(LMDB.Directives.class)
-public final class LMDB {
+final class LMDB {
 
     /**
      * Sets up the context required for interacting with native libraries.
@@ -56,8 +57,7 @@ public final class LMDB {
     public static final class Directives implements CContext.Directives {
         @Override
         public List<String> getHeaderFiles() {
-        	return List.of("<lmdb.h>", "<features.h>");
-//            return Collections.singletonList("<lmdb.h>");
+            return Collections.singletonList("<lmdb.h>");
         }
 
         @Override

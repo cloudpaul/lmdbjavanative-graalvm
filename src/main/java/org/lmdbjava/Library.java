@@ -41,6 +41,11 @@ import jnr.ffi.Pointer;
 import jnr.ffi.Struct;
 import jnr.ffi.annotations.Delegate;
 import jnr.ffi.annotations.In;
+import jnr.ffi.annotations.Out;
+import jnr.ffi.byref.IntByReference;
+import jnr.ffi.byref.NativeLongByReference;
+import jnr.ffi.byref.PointerByReference;
+import jnr.ffi.types.size_t;
 
 /**
  * JNR-FFI interface to LMDB.
@@ -48,7 +53,7 @@ import jnr.ffi.annotations.In;
  * <p>
  * For performance reasons pointers are used rather than structs.
  */
-public final class Library {
+final class Library {
 
   /**
    * Java system property name that can be set to disable automatic extraction
@@ -124,7 +129,7 @@ public final class Library {
   private Library() {
   }
 
-//  @SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION") // Spotbugs issue #432
+  //@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION") // Spotbugs issue #432
   private static String extract(final String name) {
     final String suffix = name.substring(name.lastIndexOf('.'));
     final File file;
@@ -208,6 +213,109 @@ public final class Library {
 
     @Delegate
     int compare(@In Pointer keyA, @In Pointer keyB);
+
+  }
+
+  /**
+   * JNR API for MDB-defined C functions. Not for external use.
+   */
+  @SuppressWarnings("checkstyle:MethodName")
+  public interface Lmdb {
+
+    void mdb_cursor_close(@In Pointer cursor);
+
+    int mdb_cursor_count(@In Pointer cursor, NativeLongByReference countp);
+
+    int mdb_cursor_del(@In Pointer cursor, int flags);
+
+    int mdb_cursor_get(@In Pointer cursor, Pointer k, @Out Pointer v,
+                       int cursorOp);
+
+    int mdb_cursor_open(@In Pointer txn, @In Pointer dbi,
+                        PointerByReference cursorPtr);
+
+    int mdb_cursor_put(@In Pointer cursor, @In Pointer key, @In Pointer data,
+                       int flags);
+
+    int mdb_cursor_renew(@In Pointer txn, @In Pointer cursor);
+
+    void mdb_dbi_close(@In Pointer env, @In Pointer dbi);
+
+    int mdb_dbi_flags(@In Pointer txn, @In Pointer dbi,
+                      @Out IntByReference flags);
+
+    int mdb_dbi_open(@In Pointer txn, @In byte[] name, int flags,
+                     @In Pointer dbiPtr);
+
+    int mdb_del(@In Pointer txn, @In Pointer dbi, @In Pointer key,
+                @In Pointer data);
+
+    int mdb_drop(@In Pointer txn, @In Pointer dbi, int del);
+
+    void mdb_env_close(@In Pointer env);
+
+    int mdb_env_copy2(@In Pointer env, @In String path, int flags);
+
+    int mdb_env_create(PointerByReference envPtr);
+
+    int mdb_env_get_fd(@In Pointer env, @In Pointer fd);
+
+    int mdb_env_get_flags(@In Pointer env, int flags);
+
+    int mdb_env_get_maxkeysize(@In Pointer env);
+
+    int mdb_env_get_maxreaders(@In Pointer env, int readers);
+
+    int mdb_env_get_path(@In Pointer env, String path);
+
+    int mdb_env_info(@In Pointer env, @Out MDB_envinfo info);
+
+    int mdb_env_open(@In Pointer env, @In String path, int flags, int mode);
+
+    int mdb_env_set_flags(@In Pointer env, int flags, int onoff);
+
+    int mdb_env_set_mapsize(@In Pointer env, @size_t long size);
+
+    int mdb_env_set_maxdbs(@In Pointer env, int dbs);
+
+    int mdb_env_set_maxreaders(@In Pointer env, int readers);
+
+    int mdb_env_stat(@In Pointer env, @Out MDB_stat stat);
+
+    int mdb_env_sync(@In Pointer env, int f);
+
+    int mdb_get(@In Pointer txn, @In Pointer dbi, @In Pointer key,
+                @Out Pointer data);
+
+    int mdb_put(@In Pointer txn, @In Pointer dbi, @In Pointer key,
+                @In Pointer data,
+                int flags);
+
+    int mdb_reader_check(@In Pointer env, int dead);
+
+    int mdb_set_compare(@In Pointer txn, @In Pointer dbi, ComparatorCallback cb);
+
+    int mdb_stat(@In Pointer txn, @In Pointer dbi, @Out MDB_stat stat);
+
+    String mdb_strerror(int rc);
+
+    void mdb_txn_abort(@In Pointer txn);
+
+    int mdb_txn_begin(@In Pointer env, @In Pointer parentTx, int flags,
+                      Pointer txPtr);
+
+    int mdb_txn_commit(@In Pointer txn);
+
+    Pointer mdb_txn_env(@In Pointer txn);
+
+    long mdb_txn_id(@In Pointer txn);
+
+    int mdb_txn_renew(@In Pointer txn);
+
+    void mdb_txn_reset(@In Pointer txn);
+
+    Pointer mdb_version(IntByReference major, IntByReference minor,
+                        IntByReference patch);
 
   }
 }
