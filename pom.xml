@@ -33,11 +33,11 @@
 	     <!--  <scope>runtime</scope> -->
 	      <classifier>native</classifier>
 	    </dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>juji</groupId>
 			<artifactId>lmdbjavanative</artifactId>
 			<version>0.8.2</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
@@ -50,7 +50,7 @@
 		</dependency>
 		
 		<!-- from lmdbjavanative pom -->
-<!-- 		<dependency>
+		<dependency>
 			<groupId>com.github.jnr</groupId>
 			<artifactId>jnr-constants</artifactId>
 			<version>0.9.15</version>
@@ -66,7 +66,7 @@
 			<artifactId>graal-sdk</artifactId>
 			<version>21.0.0</version>
 			<scope>provided</scope>
-		</dependency>	 -->
+		</dependency>	
 		<dependency>
 			<groupId>org.lmdbjava</groupId>
 			<artifactId>lmdbjava-native-linux-x86_64</artifactId>
@@ -85,6 +85,12 @@
 			<version>0.9.24-1</version>
 			<optional>true</optional>
 		</dependency>
+		    <dependency>
+      <groupId>org.agrona</groupId>
+      <artifactId>agrona</artifactId>
+      <version>1.5.1</version>
+      <optional>true</optional>
+    </dependency>
 	</dependencies>
 
 	<build>
@@ -237,14 +243,21 @@
                     </jniList> -->
                     <nativeImageArgs>
                         <!-- <nativeImageArg>- - initialize-at-build-time=jnr.ffi.LibraryLoader</nativeImageArg> -->
-                        
+                       <!--  <nativeImageArg>- -add-exports jdk.charsets/sun.nio.ch=ALL-UNNAMED</nativeImageArg> -->
                         <nativeImageArg>--initialize-at-run-time=org.lmdbjava.Library,jnr.ffi.Runtime,jnr.ffi.LibraryLoader,jnr.ffi.byref.PointerByReference,jnr.ffi.provider.jffi.Provider,com.kenai.jffi.Foreign</nativeImageArg>
                         <nativeImageArg>--report-unsupported-elements-at-runtime</nativeImageArg>
+                        <nativeImageArg>-H:CCompilerOption=-Wno-everything</nativeImageArg>
+<!--                         <nativeImageArg>-H:CLibraryPath=/usr/include</nativeImageArg> -->
+                       <!--  <nativeImageArg>-H:CCompilerOption=-static-libstdc++</nativeImageArg> -->
+                        <nativeImageArg>-H:UseLibC=glibc</nativeImageArg>
+                       <!--  <nativeImageArg>- -libc=musl</nativeImageArg> -->
+                        <nativeImageArg>-D--add-exports java.base/sun.nio.ch=ALL-UNNAMED</nativeImageArg>
                         <nativeImageArg>-H:+AllowIncompleteClasspath</nativeImageArg>
+                        <nativeImageArg>-H:-CheckToolchain</nativeImageArg>
                         <nativeImageArg>-H:IncludeResources=dynamic-proxies.json,jni-config.json</nativeImageArg>
                         <nativeImageArg>-H:DynamicProxyConfigurationFiles=../../../../dynamic-proxies.json</nativeImageArg>
                        <!--  <nativeImageArg>-H:JNIConfigurationResources=${basedir}/jni-config.json</nativeImageArg> -->
-                       <!--  <nativeImageArg>- -illegal-access=warn</nativeImageArg> -->
+                        <!-- <nativeImageArg>- -static</nativeImageArg> -->
                     </nativeImageArgs>
 <!--                     <resourceList>
 	                    <list>.*/dynamic-proxies.json</list>
