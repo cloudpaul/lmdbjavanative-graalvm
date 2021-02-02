@@ -33,11 +33,11 @@
 	     <!--  <scope>runtime</scope> -->
 	      <classifier>native</classifier>
 	    </dependency>
-<!-- 		<dependency>
+		<dependency>
 			<groupId>juji</groupId>
 			<artifactId>lmdbjavanative</artifactId>
 			<version>0.8.2</version>
-		</dependency> -->
+		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
@@ -249,15 +249,17 @@
                         <nativeImageArg>-H:CCompilerOption=-Wno-everything</nativeImageArg>
 <!--                         <nativeImageArg>-H:CLibraryPath=/usr/include</nativeImageArg> -->
                        <!--  <nativeImageArg>-H:CCompilerOption=-static-libstdc++</nativeImageArg> -->
+                      <!--   <nativeImageArg>- -native-compiler-path=clang</nativeImageArg> -->
                         <nativeImageArg>-H:UseLibC=glibc</nativeImageArg>
                        <!--  <nativeImageArg>- -libc=musl</nativeImageArg> -->
                         <nativeImageArg>-D--add-exports java.base/sun.nio.ch=ALL-UNNAMED</nativeImageArg>
                         <nativeImageArg>-H:+AllowIncompleteClasspath</nativeImageArg>
-                        <nativeImageArg>-H:-CheckToolchain</nativeImageArg>
+                        <nativeImageArg>-H:TempDirectory=C:\test-native</nativeImageArg>
+                        <!-- <nativeImageArg>-H:-CheckToolchain</nativeImageArg> -->
                         <nativeImageArg>-H:IncludeResources=dynamic-proxies.json,jni-config.json</nativeImageArg>
                         <nativeImageArg>-H:DynamicProxyConfigurationFiles=../../../../dynamic-proxies.json</nativeImageArg>
                        <!--  <nativeImageArg>-H:JNIConfigurationResources=${basedir}/jni-config.json</nativeImageArg> -->
-                        <!-- <nativeImageArg>- -static</nativeImageArg> -->
+                       <!--  <nativeImageArg>- -static - -verbose</nativeImageArg> -->
                     </nativeImageArgs>
 <!--                     <resourceList>
 	                    <list>.*/dynamic-proxies.json</list>
