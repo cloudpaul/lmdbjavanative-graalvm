@@ -593,13 +593,14 @@
   }
 ,
   {
-    "name" : "org.lmdbjava.LMDB",
+    "name" : "org.lmdbjava.Library$lmdb",
 	"methods" : [
-		{"name":"mdb_env_create","parameterTypes":["org.graalvm.nativeimage.c.type.WordPointer"] },
-		{"name":"mdb_env_open","parameterTypes":["org.graalvm.word.Pointer", "org.graalvm.nativeimage.c.type.CCharPointer", "int", "int"] },
-		{"name":"mdb_strerror","parameterTypes":["int"] }
+		{"name":"mdb_env_create","parametertypes":["org.graalvm.nativeimage.c.type.wordpointer"] },
+		{"name":"mdb_env_open","parametertypes":["org.graalvm.word.pointer", "org.graalvm.nativeimage.c.type.ccharpointer", "int", "int"] },
+		{"name":"mdb_strerror","parametertypes":["int"] },
+		{"name":"mdb_stat", "": ["jnr.ffi.Pointer", "jnr.ffi.Pointer", "org.lmdbjava.Library$MDB_stat"]}
 	]
   }
 ]
 
-
+ 

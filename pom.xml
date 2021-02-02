@@ -186,28 +186,6 @@
 			        </execution>			        
 			    </executions>
 			</plugin>
-<!-- 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>lmdbjava-shade</id>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<phase>package</phase>
-						<configuration>
-							<artifactSet>
-								<includes>
-									<include>org.lmdbjava:lmdbjava-native-linux-x86_64</include>
-									<include>org.lmdbjava:lmdbjava-native-windows-x86_64</include>
-									<include>org.lmdbjava:lmdbjava-native-osx-x86_64</include>
-								</includes>
-							</artifactSet>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
             <plugin>
                 <groupId>com.gluonhq</groupId>
                 <artifactId>client-maven-plugin</artifactId>
@@ -215,10 +193,6 @@
                 <configuration>
                     <target>${client.target}</target>
                     <mainClass>sample.Loader</mainClass>
-                    <!-- for language files -->
-<!--                     <bundlesList>
-                        <list>sample</list>
-                    </bundlesList> -->
                     <reflectionList>
                         <list>sample.Controller</list>
                 	    <list>javafx.fxml.FXMLLoader</list>
@@ -232,70 +206,25 @@
                  	   <list>javafx.scene.control.Separator</list>                        
                  	   <list>javafx.scene.control.cell.PropertyValueFactory</list>                        
 					   <list>javafx.scene.layout.GridPane</list>
-					   <list>org.lmdbjava.Lmdb</list>
-					   <!-- <list>org.lmdbjava.LMDB</list> -->
+					   <list>org.lmdbjava.Library$Lmdb</list>
 					   <list>org.lmdbjava.ByteBufferProxy</list>
 					   <list>java.nio.Buffer</list>
 					   <list>jnr.ffi.provider.jffi.Provider</list>
-				<!-- 	   <list>jnr.ffi.Runtime</list>
-					   <list>jnr.ffi.LibraryLoader</list> -->
-					  <!--  <list>jnr.ffi.byref.PointerByReference</list> -->
                     </reflectionList>
-            <!--         <jniList>
-                    	<list>org.lmdbjava.LMDB</list>
-                    </jniList> -->
                     <nativeImageArgs>
-                        <!-- <nativeImageArg>- - initialize-at-build-time=jnr.ffi.LibraryLoader</nativeImageArg> -->
-                       <!--  <nativeImageArg>- -add-exports jdk.charsets/sun.nio.ch=ALL-UNNAMED</nativeImageArg> -->
                         <nativeImageArg>--initialize-at-run-time=org.lmdbjava.Library,jnr.ffi.Runtime,jnr.ffi.LibraryLoader,jnr.ffi.byref.PointerByReference,jnr.ffi.provider.jffi.Provider,com.kenai.jffi.Foreign</nativeImageArg>
                         <nativeImageArg>--report-unsupported-elements-at-runtime</nativeImageArg>
-                        <nativeImageArg>-H:CCompilerOption=-Wno-everything</nativeImageArg>
-<!--                         <nativeImageArg>-H:CLibraryPath=/usr/include</nativeImageArg> -->
-                       <!--  <nativeImageArg>-H:CCompilerOption=-static-libstdc++</nativeImageArg> -->
-                        <nativeImageArg>-H:UseLibC=glibc</nativeImageArg>
-                       <!--  <nativeImageArg>- -libc=musl</nativeImageArg> -->
                         <nativeImageArg>-D--add-exports java.base/sun.nio.ch=ALL-UNNAMED</nativeImageArg>
                         <nativeImageArg>-H:+AllowIncompleteClasspath</nativeImageArg>
                         <nativeImageArg>-H:-CheckToolchain</nativeImageArg>
                         <nativeImageArg>-H:IncludeResources=dynamic-proxies.json,jni-config.json</nativeImageArg>
                         <nativeImageArg>-H:DynamicProxyConfigurationFiles=../../../../dynamic-proxies.json</nativeImageArg>
-                       <!--  <nativeImageArg>-H:JNIConfigurationResources=${basedir}/jni-config.json</nativeImageArg> -->
-                        <!-- <nativeImageArg>- -static</nativeImageArg> -->
+                        <!-- probably not needed -->
+                        <nativeImageArg>-H:UseLibC=glibc</nativeImageArg>
+                        <nativeImageArg>-H:CCompilerOption=-Wno-everything</nativeImageArg>
                     </nativeImageArgs>
-<!--                     <resourceList>
-	                    <list>.*/dynamic-proxies.json</list>
-                    </resourceList> -->
                 </configuration>
             </plugin>
-<!-- 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.3</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<inherited>false</inherited>
-						<configuration>
-							<shadedArtifactAttached>true</shadedArtifactAttached>
-							<shadedClassifierName>all</shadedClassifierName>
-							<artifactSet>
-								<includes>*:*</includes>
-							</artifactSet>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<manifestEntries>
-										<Main-Class>${main.class}</Main-Class>
-									</manifestEntries>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
 		</plugins>
 	</build>
 </project>

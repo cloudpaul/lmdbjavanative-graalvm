@@ -1,11 +1,5 @@
 package sample;
 
-import org.lmdbjava.LibTest;
-import org.lmdbjava.NativeMain;
-
-import com.kenai.jffi.JffiTest;
-import com.kenai.jffi.NativeType;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,9 +9,9 @@ import javafx.stage.Stage;
 
 public class Loader extends Application{
 
-	static {
-		NativeMain.main(new String[0]);
-	}
+//	static {
+//		NativeMain.main(new String[0]);
+//	}
 	
     @Override
 	public void start(final Stage primaryStage) throws Exception{
@@ -36,8 +30,8 @@ public class Loader extends Application{
 
 //    	NativeMain.main(args);
     	
-    	LibTest.check();
-    	JffiTest.lookupTypeInfo(NativeType.POINTER);
+//    	LibTest.check();
+//    	JffiTest.lookupTypeInfo(NativeType.POINTER);
     	
     	System.out.println("Hello World!");
         launch(args);

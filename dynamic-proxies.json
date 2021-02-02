@@ -1,5 +1,5 @@
 [
-  ["org.lmdbjava.Lmdb", "jnr.ffi.provider.LoadedLibrary"],
-  ["org.lmdbjava.Lmdb"],
+  ["org.lmdbjava.Library$Lmdb", "jnr.ffi.provider.LoadedLibrary"],
+  ["org.lmdbjava.Library$Lmdb"],
   ["jnr.ffi.provider.LoadedLibrary"]
 ]
