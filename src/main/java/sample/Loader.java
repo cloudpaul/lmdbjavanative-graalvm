@@ -1,11 +1,5 @@
 package sample;
 
-//import org.lmdbjava.LibTest;
-//import org.lmdbjava.NativeMain;
-//
-//import com.kenai.jffi.JffiTest;
-//import com.kenai.jffi.NativeType;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
