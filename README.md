@@ -6,7 +6,7 @@ This is a combination of two projects:
 
 Why do this this? 
 I wanted to use lmdbjavanative as a dependency from lmdb-viewer in order to create a native image.
-However, GraalVM does not support dynamic linking so I have simply copied lmdbjavanative source into lmdb-viewer.
+NB has source from lmdbjavanative - could of course have imported it as a Maven dependency.
 This does not work, perhaps because lmdbjavanative wants to be built with JDK 8 rather than 11.
 
 # lmdb-viewer
